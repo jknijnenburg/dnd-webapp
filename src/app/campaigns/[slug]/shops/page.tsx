@@ -4,7 +4,8 @@ import { Store } from "lucide-react";
 import { requirePlayerPage } from "@/lib/auth/session";
 import { playerGetCampaign, playerListShops } from "@/lib/dal/player";
 import { normalizeLayoutPreset } from "@/lib/theme";
-import { EmptyState, PageHeader, PageSkeleton } from "@/components/misc";
+import { EmptyState, PageSkeleton } from "@/components/misc";
+import { GameScene } from "@/components/game-scene";
 import { ShopBrowser } from "@/components/shop-browser";
 
 async function Shops({ params }: { params: Promise<{ slug: string }> }) {
@@ -15,7 +16,13 @@ async function Shops({ params }: { params: Promise<{ slug: string }> }) {
   const shops = await playerListShops(campaign.id);
   return (
     <>
-      <PageHeader title="Händler" description="Alle Händler dieser Kampagne mit ihrem aktuellen Sortiment." />
+      <GameScene
+        title="Der Marktplatz"
+        eyebrow={`${campaign.name} · Tag ${campaign.currentDay}`}
+        description="Seltene Schätze. Seltsame Händler. Und vielleicht genau das, was deinem nächsten Abenteuer noch fehlt."
+      >
+        <span className="game-scene-note">{shops.length} Händler in dieser Kampagne</span>
+      </GameScene>
       {shops.length === 0 ? (
         <EmptyState icon={<Store />} title="Noch keine Händler" description="In dieser Kampagne hat noch kein Händler geöffnet." />
       ) : (

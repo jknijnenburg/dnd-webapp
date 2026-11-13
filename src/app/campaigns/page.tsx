@@ -7,9 +7,10 @@ import { coverImage } from "@/lib/assets";
 import { requirePlayerPage } from "@/lib/auth/session";
 import { playerListCampaigns } from "@/lib/dal/player";
 import { themeToCssVars } from "@/lib/theme";
+import { GameScene } from "@/components/game-scene";
 import { AutoRefresh } from "@/components/auto-refresh";
 import { Button } from "@/components/ui/button";
-import { DayBadge, EmptyState, PageHeader, PageSkeleton } from "@/components/misc";
+import { DayBadge, EmptyState, PageSkeleton } from "@/components/misc";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
 
 export const metadata: Metadata = { title: "Kampagnen" };
@@ -21,7 +22,7 @@ async function CampaignOverview() {
     <>
       <SiteHeader />
       <main id="inhalt" className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
-        <PageHeader title="Kampagnen" description="Wähle eine Kampagne, um ihre Händler und Waren zu sehen." />
+        <GameScene title="Dein Abenteuer wartet" eyebrow="Die Chroniken deiner Spielrunde" description="Wähle eine Kampagne. Entdecke ihre Händler, horte Schätze und schreibe das nächste Kapitel." character={false} />
         {campaigns.length === 0 ? (
           <EmptyState
             icon={<MapIcon />}
@@ -36,7 +37,7 @@ async function CampaignOverview() {
             }
           />
         ) : (
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="game-campaign-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {campaigns.map((campaign) => (
               <li key={campaign.id}>
                 {/* Each card previews its own campaign theme. */}

@@ -111,7 +111,7 @@ export function DayBadge({ day, className }: { day: number; className?: string }
   return (
     <span
       className={cn(
-        "inline-flex items-baseline gap-1.5 rounded-md border border-primary/50 bg-primary/10 px-3 py-1 font-display text-primary",
+        "game-day-badge inline-flex items-baseline gap-1.5 rounded-md border border-primary/50 bg-primary/10 px-3 py-1 font-display text-primary",
         className,
       )}
     >

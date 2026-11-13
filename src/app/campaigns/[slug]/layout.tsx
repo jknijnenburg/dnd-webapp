@@ -41,13 +41,13 @@ async function CampaignFrame({ params, children }: { params: Promise<{ slug: str
         </div>
       </SiteHeader>
 
-      <div className="border-b border-border bg-background/70">
+      <div className="game-campaign-bar border-b border-border bg-background/70">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 pt-4">
           <div className="flex min-w-0 items-center gap-4 pb-2">
             <p className="truncate font-display text-xl font-semibold sm:text-2xl">{campaign.name}</p>
             <DayBadge day={campaign.currentDay} />
           </div>
-          <nav aria-label="Bereiche der Kampagne" className="-mb-px flex gap-1">
+          <nav aria-label="Bereiche der Kampagne" className="game-tabs -mb-px flex gap-1">
             <NavLink href={base} exact className={tab} activeClassName={tabActive}>
               Übersicht
             </NavLink>

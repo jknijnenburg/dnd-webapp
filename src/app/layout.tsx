@@ -4,6 +4,7 @@ import "@fontsource-variable/crimson-pro";
 import "@fontsource-variable/cormorant";
 import "@fontsource-variable/inter";
 import "./globals.css";
+import "./game-shell.css";
 import { APPEARANCE_INIT_SCRIPT } from "@/lib/appearance";
 import { Toaster } from "@/components/ui/sonner";
 

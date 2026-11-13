@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CalendarClock, Store, Wrench } from "lucide-react";
+import { ArrowRight, CalendarClock } from "lucide-react";
 import { coverImage } from "@/lib/assets";
 import { requirePlayerPage } from "@/lib/auth/session";
 import { playerGetCampaign, playerListShops } from "@/lib/dal/player";
@@ -36,11 +36,11 @@ async function Dashboard({ params }: { params: Promise<{ slug: string }> }) {
           Bereiche
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Link href={`${base}/shops`} className="group">
+          <Link href={`${base}/shops`} className="game-destination group">
             <Card className="h-full transition-colors group-hover:border-primary/70">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 group-hover:text-primary">
-                  <Store className="size-5 text-primary" aria-hidden /> Händler
+                  <span className="game-destination-art game-destination-shop" aria-hidden /> Händler
                 </CardTitle>
                 <CardDescription>
                   {shops.length === 0
@@ -53,11 +53,11 @@ async function Dashboard({ params }: { params: Promise<{ slug: string }> }) {
               </CardContent>
             </Card>
           </Link>
-          <Link href={`${base}/tools`} className="group">
+          <Link href={`${base}/tools`} className="game-destination group">
             <Card className="h-full transition-colors group-hover:border-primary/70">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 group-hover:text-primary">
-                  <Wrench className="size-5 text-primary" aria-hidden /> Werkzeuge
+                  <span className="game-destination-art game-destination-tools" aria-hidden /> Werkzeuge
                 </CardTitle>
                 <CardDescription>Platz für künftige Hilfsmittel dieser Kampagne.</CardDescription>
               </CardHeader>

@@ -1,0 +1,211 @@
+/* Shared scene art and manuscript UI. Content remains real, selectable HTML. */
+:root { --game-ink: #36251f; --game-gilt: #bd8d46; }
+.theme-scope {
+  background-image: radial-gradient(ellipse at 50% 10%, transparent 35%, #714b3020 100%), var(--paper-texture);
+}
+.fantasy-header {
+  background-color: #30261f;
+  color: #eedab3;
+  border-bottom: 4px solid #1c1512;
+  box-shadow: 0 2px 0 #c39554, 0 8px 20px #25160e33;
+  background-image: linear-gradient(100deg, #0002, transparent 35%, #0002), var(--paper-texture);
+}
+.fantasy-header > div { min-height: 4.35rem; gap: .75rem; }
+.fantasy-header :is(.text-muted, .text-foreground) { color: #e6ceaa; }
+.fantasy-header .text-primary, .game-brand { color: #e8bc75; }
+.fantasy-header .fantasy-button { color: #e8d6b5; border-color: #94764f; }
+.game-brand { letter-spacing: -.04em; }
+.game-brand-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.9rem;
+  height: 3.25rem;
+  color: #f3dca4;
+  background: #923b2d;
+  border: 2px solid #291d18;
+  border-radius: 35% 35% 46% 46% / 18% 20% 74% 73%;
+  box-shadow: inset 0 0 0 3px #c79453, 2px 3px 0 #0005;
+  transform: rotate(-5deg);
+}
+.game-campaign-bar { border-bottom: 0; background: none; padding-top: .35rem; }
+.game-tabs { gap: .4rem; padding-bottom: .5rem; }
+.game-tabs a {
+  font-family: var(--font-heading);
+  border: 0;
+  position: relative;
+  padding: .65rem 1.1rem;
+  border-radius: 4px 12px 3px 9px;
+}
+.game-tabs a[aria-current="page"] {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  box-shadow: 2px 3px 0 var(--game-ink);
+  transform: rotate(-2deg);
+}
+.game-day-badge {
+  border: 2px solid var(--game-ink);
+  background: var(--surface);
+  border-radius: 2px 9px 3px 8px;
+  box-shadow: 2px 3px 0 #4b321c25;
+  transform: rotate(3deg);
+}
+.game-scene {
+  position: relative;
+  isolation: isolate;
+  min-height: 23rem;
+  margin: 1.5rem 0 3rem;
+  display: flex;
+  align-items: center;
+  padding: 2.4rem 3rem;
+}
+.game-scene-landscape-art {
+  z-index: -2;
+  position: absolute;
+  inset: 0;
+  background: url('/images/game/market-square.webp') center 51% / cover;
+  clip-path: polygon(0 5%, 9% 1%, 25% 3%, 43% 0, 64% 3%, 82% 1%, 99% 5%, 100% 42%, 99% 64%, 100% 95%, 81% 98%, 62% 96%, 41% 100%, 22% 96%, 1% 99%, 0 68%, 1% 37%);
+  box-shadow: inset 0 0 80px #30221855;
+}
+.game-scene::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, var(--background) 3%, color-mix(in oklab, var(--background) 96%, transparent) 29%, color-mix(in oklab, var(--background) 75%, transparent) 48%, transparent 79%);
+}
+.game-scene-copy { width: 57%; position: relative; z-index: 2; padding-block: .75rem; }
+.game-eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 750;
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.game-eyebrow > span { margin-right: .5rem; color: var(--accent); }
+.game-scene h1 {
+  margin-top: .6rem;
+  font-size: clamp(2.25rem, 4.6vw, 3.9rem);
+  line-height: 1.04;
+  font-weight: 900;
+  letter-spacing: -.055em;
+  color: var(--foreground);
+  text-shadow: 1px 2px 0 color-mix(in oklab, var(--background) 85%, transparent);
+}
+.game-scene-description { max-width: 25rem; margin-top: 1.15rem; font-size: 1.13rem; line-height: 1.4; }
+.game-scene-actions { margin-top: 1.45rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+.game-scene-note { border-top: 1px solid var(--border); padding-top: .65rem; color: var(--muted-foreground); font-size: .85rem; font-style: italic; }
+.game-scene-character {
+  position: absolute;
+  z-index: 1;
+  width: 46%;
+  max-width: 29rem;
+  height: auto;
+  right: -.5rem;
+  bottom: -1.3rem;
+  filter: drop-shadow(3px 5px 0 #251b1740);
+  transform: rotate(2deg);
+  pointer-events: none;
+}
+.game-scene-runes {
+  position: absolute;
+  right: 13%;
+  top: 5%;
+  font-size: 10rem;
+  color: #a5d4b844;
+  z-index: -1;
+  line-height: 1;
+  animation: game-rune-turn 16s ease-in-out infinite alternate;
+}
+.game-scene-pin { position: absolute; left: -.3rem; top: -.3rem; font-size: 2.5rem; color: var(--primary); transform: rotate(-15deg); }
+.game-scene-landscape .game-scene-copy { width: 70%; }
+.game-scene-landscape { min-height: 20rem; }
+.game-scene-landscape::before { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 92%, transparent) 35%, transparent); }
+.fantasy-page-header { position: relative; border-bottom: 0; padding: 1rem 0 1.5rem 1.5rem; }
+.fantasy-page-header::before { content: ''; position: absolute; top: .7rem; left: 0; height: 3rem; width: 5px; background: var(--primary); transform: rotate(4deg); }
+.fantasy-page-header h1 { font-size: clamp(1.8rem, 3vw, 2.7rem); font-weight: 900; }
+.fantasy-panel {
+  border: 2px solid var(--game-ink);
+  border-radius: 3px 18px 4px 13px / 12px 5px 16px 4px;
+  background-image: linear-gradient(115deg, #fff3, transparent 45%, #6843230c), var(--paper-texture);
+  box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--background) 80%, transparent), 3px 5px 0 #33221930;
+}
+.fantasy-button-solid { border-color: var(--game-ink); border-radius: 3px 12px 3px 9px; box-shadow: inset 0 0 0 1px #e6bd72, 2px 4px 0 var(--game-ink); }
+.fantasy-button-solid:hover { transform: translateY(-2px) rotate(-1deg); }
+.fantasy-button-solid:active { transform: translateY(2px); }
+.fantasy-field { border-color: var(--border-strong); border-radius: 3px 12px 4px 10px; }
+.game-campaign-grid { padding: .5rem .35rem 1.5rem; gap: 1.6rem; }
+.game-campaign-grid > li:nth-child(3n+1) { transform: rotate(-1.3deg); }
+.game-campaign-grid > li:nth-child(3n+2) { transform: translateY(.6rem) rotate(1deg); }
+.game-campaign-grid .campaign-card { overflow: visible; transition: transform 180ms; }
+.game-campaign-grid .campaign-card:hover { transform: translateY(-7px) rotate(1deg); }
+.campaign-card > img { border: 3px solid var(--game-ink); width: calc(100% + .8rem); max-width: none; margin: -.4rem -.4rem 0; border-radius: 4px 14px 3px 10px; height: 11rem; }
+.campaign-card h2 { font-weight: 850; }
+.campaign-hero { position: relative; margin-bottom: 2.5rem; transform: rotate(-.4deg); }
+.campaign-hero > img { height: 18rem; border: 0; }
+.campaign-hero > div { position: relative; width: 85%; margin: -4.5rem 0 -1rem 1.5rem; background: var(--surface); background-image: var(--paper-texture); border: 2px solid var(--game-ink); padding: 1.7rem; transform: rotate(.8deg); border-radius: 3px 16px 3px 12px; box-shadow: 3px 5px 0 #33221930; }
+.game-destination .fantasy-panel { min-height: 11rem; padding-right: 6rem; overflow: hidden; transition: transform 180ms; }
+.game-destination:hover .fantasy-panel { transform: translateY(-4px) rotate(-.5deg); }
+.game-destination-art { position: absolute; right: .5rem; bottom: -.5rem; width: 7rem; height: 10rem; background-repeat: no-repeat; background-position: center; background-size: contain; transform: rotate(12deg); opacity: .9; }
+.game-destination-shop { background-image: url('/images/game/item-atlas.webp'); background-size: 300% 300%; background-position: 100% 0; height: 7rem; }
+.game-destination-tools { background-image: url('/images/game/item-atlas.webp'); background-size: 300% 300%; background-position: 0 50%; height: 7rem; }
+.game-login { position: relative; isolation: isolate; min-height: 100dvh; overflow: hidden; }
+.game-login::before { content: ''; position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg, #251b18aa, #251b1822), url('/images/game/market-square.webp') center / cover; }
+.game-login::after { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse, transparent 30%, #17120ecc); }
+.game-login-toggle { position: absolute; z-index: 5; right: 1.2rem; top: 1.2rem; }
+.game-login-toggle .fantasy-button { background: var(--surface); }
+.game-login-spread { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; width: 100%; max-width: 64rem; padding-block: 3rem; }
+.game-login-illustration { position: relative; margin-right: -2rem; align-self: end; }
+.game-login-illustration img { position: relative; z-index: 1; width: 100%; height: auto; filter: drop-shadow(6px 10px 0 #1c141755); transform: rotate(-3deg); }
+.game-login-illustration > p { position: relative; z-index: 3; font-family: var(--font-heading); font-size: 1.4rem; line-height: 1.2; font-weight: 850; text-align: center; color: #f2d9a8; text-shadow: 2px 2px 0 #211510; margin-top: -2rem; transform: rotate(-3deg); }
+.game-login-illustration > p span { font-family: var(--font-body); font-size: 1rem; font-weight: 500; font-style: italic; }
+.game-login-moon { position: absolute; right: 0; top: -3rem; color: #edcc83; font-size: 8rem; line-height: 1; }
+.game-login-parchment { z-index: 2; justify-self: center; transform: rotate(1.5deg); padding: .8rem; background-color: var(--surface); box-shadow: 8px 10px 0 #160e1666; }
+.game-login-parchment::before, .game-login-parchment::after { content: ''; position: absolute; height: 3.8rem; width: 3.8rem; background: url('/images/ui/manuscript-corner.svg') center / contain no-repeat; pointer-events: none; opacity: .65; }
+.game-login-parchment::before { left: .4rem; top: .4rem; }
+.game-login-parchment::after { right: .4rem; bottom: .4rem; transform: rotate(180deg); }
+.game-login-parchment .game-eyebrow { font-size: .55rem; }
+:root[data-theme="dark"] .game-scene-landscape-art { filter: brightness(.64) saturate(.85); }
+:root[data-theme="dark"] .fantasy-panel { border-color: #0e0c0b; box-shadow: inset 0 0 0 2px #a3865855, 3px 5px 0 #0005; }
+:root[data-theme="dark"] .game-login-parchment { box-shadow: 8px 10px 0 #08070688; }
+@keyframes game-rune-turn { from { transform: rotate(-15deg); opacity: .5; } to { transform: rotate(15deg); opacity: .9; } }
+@media (max-width: 900px) {
+  .game-scene { padding: 2rem 1.5rem; min-height: 20rem; }
+  .game-scene-character { width: 47%; right: 0; bottom: -.5rem; }
+  .game-scene h1 { font-size: 2.7rem; }
+  .game-scene-description { font-size: 1rem; }
+  .game-login-spread { max-width: 54rem; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 639px) {
+  .game-brand-seal { width: 2.25rem; height: 2.6rem; }
+  .fantasy-header > div { min-height: 3.6rem; gap: .45rem; }
+  .game-tabs a { padding: .55rem .75rem; font-size: .8rem; }
+  .game-scene { margin: .5rem 0 2rem; padding: 1.5rem 1rem 1rem; display: block; min-height: 0; }
+  .game-scene-copy, .game-scene-landscape .game-scene-copy { width: 100%; padding-bottom: .5rem; }
+  .game-scene:not(.game-scene-landscape) .game-scene-copy { padding-right: 25%; }
+  .game-scene h1 { font-size: 2.25rem; }
+  .game-scene-description { font-size: .95rem; }
+  .game-scene-character { position: relative; width: 68%; max-width: 20rem; bottom: -1.5rem; right: auto; display: block; margin: -1.25rem -1rem 0 auto; }
+  .game-scene::before { background: linear-gradient(110deg, var(--background), color-mix(in oklab, var(--background) 95%, transparent) 40%, color-mix(in oklab, var(--background) 60%, transparent)); }
+  .game-scene-runes { font-size: 7rem; top: auto; bottom: 3rem; right: 20%; }
+  .game-scene-landscape { min-height: 15rem; }
+  .game-scene-actions { margin-top: 1rem; }
+  .game-campaign-grid { gap: 1.6rem; }
+  .game-campaign-grid > li:nth-child(3n+2) { transform: rotate(1deg); }
+  .campaign-hero > img { height: 13rem; }
+  .campaign-hero > div { width: 94%; margin: -2.5rem 0 -.5rem .35rem; padding: 1.25rem; }
+  .game-destination .fantasy-panel { padding-right: 5rem; }
+  .game-destination-art { width: 5.5rem; height: 8rem; }
+  .game-login-spread { display: flex; flex-direction: column; padding-top: 1rem; }
+  .game-login-illustration { width: min(78%, 18rem); margin: 0 auto -2rem; align-self: center; }
+  .game-login-illustration > p { display: none; }
+  .game-login-moon { top: 0; font-size: 5rem; }
+  .game-login-parchment { padding: .4rem; transform: rotate(.6deg); }
+  .game-login-parchment h1 { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-scene-runes { animation: none; }
+  .game-campaign-grid .campaign-card:hover, .game-destination:hover .fantasy-panel, .fantasy-button-solid:hover { transform: none; }
+}

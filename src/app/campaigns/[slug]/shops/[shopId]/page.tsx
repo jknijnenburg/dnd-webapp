@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { CalendarClock, PackageOpen, UserRound } from "lucide-react";
-import { shopImage } from "@/lib/assets";
+import { ShopArtwork } from "@/components/shop-artwork";
 import { requirePlayerPage } from "@/lib/auth/session";
 import { playerGetCampaign, playerGetShop } from "@/lib/dal/player";
 import { refreshLabel } from "@/lib/format";
@@ -21,6 +21,7 @@ async function ShopDetail({ params }: { params: Promise<{ slug: string; shopId: 
   const view = await playerGetShop(campaign.id, shopId);
   if (!view) notFound();
   const { shop, entries } = view;
+  const alchemist = /alchem|potion|trank/i.test(`${shop.category ?? ""} ${shop.imagePath ?? ""}`);
 
   return (
     <div className="space-y-6">
@@ -28,24 +29,29 @@ async function ShopDetail({ params }: { params: Promise<{ slug: string; shopId: 
         <Breadcrumbs items={[{ label: "Händler", href: `/campaigns/${campaign.slug}/shops` }, { label: shop.name }]} />
       </div>
 
-      <section className="fantasy-panel merchant-banner flex flex-col gap-5 rounded-lg border border-border bg-surface/95 p-5 sm:flex-row sm:items-start">
-        <img src={shopImage(shop.imagePath)} alt="" className="h-32 w-full shrink-0 rounded-md border border-border object-cover sm:size-32" />
-        <div className="min-w-0 flex-1">
+      <section className={`merchant-encounter ${alchemist ? "merchant-encounter-character" : ""}`}>
+        <div className="merchant-encounter-setting" aria-hidden>
+          <ShopArtwork imagePath={shop.imagePath} category={shop.category} />
+        </div>
+        <div className="merchant-encounter-copy">
+          <p className="merchant-encounter-eyebrow">Handel &amp; Kostbarkeiten</p>
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-semibold sm:text-3xl">{shop.name}</h1>
+            <h1 className="text-3xl font-bold sm:text-4xl">{shop.name}</h1>
             {shop.category && <Badge variant="muted">{shop.category}</Badge>}
           </div>
           {shop.merchantName && (
-            <p className="mt-1 flex items-center gap-1.5 text-muted">
+            <p className="merchant-encounter-name">
               <UserRound className="size-4" aria-hidden /> {shop.merchantName}
             </p>
           )}
-          {shop.description && <p className="prose-plain mt-3 max-w-3xl">{shop.description}</p>}
-          <p className="mt-4 inline-flex items-center gap-2 rounded-md border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
+          {shop.description && <p className="prose-plain mt-3">{shop.description}</p>}
+          <p className="merchant-refresh">
             <CalendarClock className="size-4" aria-hidden />
             {refreshLabel(shop.nextRefreshDay, campaign.currentDay)}
           </p>
         </div>
+        {alchemist && <img className="merchant-encounter-portrait" src="/images/game/merchant-alchemist.webp" alt="" aria-hidden />}
+        <span className="merchant-encounter-flourish" aria-hidden>✧</span>
       </section>
 
       <section aria-labelledby="stock-heading">

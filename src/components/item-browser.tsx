@@ -1,14 +1,15 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- local static SVG placeholders */
+/* eslint-disable @next/next/no-img-element -- local illustration assets */
+import "./marketplace.css";
 import { useMemo, useState } from "react";
-import { PackageOpen, Search } from "lucide-react";
+import { ChevronDown, Coins, PackageOpen, Search, Sparkles } from "lucide-react";
 import { itemImage } from "@/lib/assets";
-import { ITEM_CATEGORY_LABELS, type ItemCategory, type LayoutPreset } from "@/lib/constants";
+import { ITEM_CATEGORIES, ITEM_CATEGORY_LABELS, type ItemCategory, type LayoutPreset } from "@/lib/constants";
 import { formatPrice, isCurrency } from "@/lib/money";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Input, NativeSelect } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 import { EmptyState, RarityBadge } from "@/components/misc";
 
 export interface ItemBrowserEntry {
@@ -27,6 +28,20 @@ export interface ItemBrowserEntry {
 const categoryLabel = (category: string) => ITEM_CATEGORY_LABELS[category as ItemCategory] ?? "Sonstiges";
 const price = (entry: ItemBrowserEntry) =>
   formatPrice(entry.priceCopper, isCurrency(entry.displayCurrency) ? entry.displayCurrency : "gp");
+
+const STOCK_ITEM_IMAGE = /^\/images\/items\/(weapon|armor|potion|scroll|ring|wand|wondrous|gear|fallback)\.svg$/;
+
+function ItemArtwork({ entry, className }: { entry: ItemBrowserEntry; className: string }) {
+  if (entry.imagePath && !STOCK_ITEM_IMAGE.test(entry.imagePath)) {
+    return <img src={itemImage(entry.imagePath, entry.category)} alt="" className={className} />;
+  }
+  const category = ITEM_CATEGORIES.some((value) => value === entry.category) ? entry.category : "other";
+  return (
+    <span className={cn("game-item-artwork", className)} aria-hidden>
+      <span className="game-item-sprite" data-category={category} />
+    </span>
+  );
+}
 
 function Stock({ quantity }: { quantity: number }) {
   return quantity > 0 ? (
@@ -56,7 +71,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
   }, [entries, query, category]);
 
   return (
-    <div>
+    <div className="game-inventory">
       <div className="market-filters mb-5 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
@@ -69,17 +84,18 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
             className="pl-9"
           />
         </div>
-        {categories.length > 1 && (
-          <NativeSelect value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Nach Kategorie filtern" className="sm:w-56">
-            <option value="">Alle Kategorien</option>
-            {categories.map((c) => (
-              <option key={c} value={c}>
-                {categoryLabel(c)}
-              </option>
-            ))}
-          </NativeSelect>
-        )}
+        <span className="inventory-count"><Sparkles className="size-4" aria-hidden /> {filtered.length} Waren</span>
       </div>
+      {categories.length > 1 && (
+        <div className="inventory-categories" role="group" aria-label="Nach Kategorie filtern">
+          <button type="button" aria-pressed={category === ""} onClick={() => setCategory("")}>Alles</button>
+          {categories.map((c) => (
+            <button key={c} type="button" aria-pressed={category === c} onClick={() => setCategory(c)}>
+              {categoryLabel(c)}
+            </button>
+          ))}
+        </div>
+      )}
 
       <p className="sr-only" role="status">
         {filtered.length} Gegenstände gefunden
@@ -93,7 +109,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
             <li key={entry.entryId} className={cn("px-4 py-3", entry.quantity === 0 && "opacity-70")}>
               <details className="group">
                 <summary className="flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden">
-                  <img src={itemImage(entry.imagePath, entry.category)} alt="" className="size-10 shrink-0 rounded-md border border-border bg-surface-2" />
+                  <ItemArtwork entry={entry} className="size-10 shrink-0 rounded-md" />
                   <div className="min-w-0 flex-1">
                     <div className="font-semibold group-open:text-primary">{entry.name}</div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
@@ -101,6 +117,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
                       <RarityBadge rarity={entry.rarity} />
                     </div>
                   </div>
+                  <ChevronDown className="inventory-disclosure size-4 shrink-0 text-accent" aria-hidden />
                   <div className="flex shrink-0 flex-col items-end gap-0.5">
                     <span className="font-display font-semibold text-primary tabular-nums">{price(entry)}</span>
                     <Stock quantity={entry.quantity} />
@@ -120,14 +137,15 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
             <li
               key={entry.entryId}
               data-rarity={entry.rarity}
-              className={cn("item-card flex flex-col rounded-lg border border-border bg-surface/95", entry.quantity === 0 && "opacity-70")}
+              className={cn("item-card flex flex-col", entry.quantity === 0 && "opacity-70")}
             >
-              <div className="item-card-heading">
-                <span className="item-card-category">{categoryLabel(entry.category)}</span>
-                <h3 className="text-base font-bold leading-snug">{entry.name}</h3>
-              </div>
               <div className="item-card-art">
-                <img src={itemImage(entry.imagePath, entry.category)} alt="" className="h-full w-full object-contain" />
+                <span className="item-card-category">{categoryLabel(entry.category)}</span>
+                <span className="item-card-spark" aria-hidden>✦</span>
+                <ItemArtwork entry={entry} className="h-full w-full object-contain" />
+              </div>
+              <div className="item-card-heading">
+                <h3 className="text-base font-bold leading-snug">{entry.name}</h3>
               </div>
               <div className="item-card-rarity"><RarityBadge rarity={entry.rarity} /></div>
               <div className="item-card-description">
@@ -136,7 +154,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
               </div>
               <div className="item-card-price mt-auto flex items-center justify-between gap-3">
                 <Stock quantity={entry.quantity} />
-                <span className="font-display text-lg font-bold text-primary tabular-nums">{price(entry)}</span>
+                <span className="item-coin-ribbon font-display text-lg font-bold tabular-nums"><Coins className="size-4" aria-hidden />{price(entry)}</span>
               </div>
             </li>
           ))}

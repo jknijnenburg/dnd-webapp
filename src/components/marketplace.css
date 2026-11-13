@@ -1,0 +1,183 @@
+/* Scoped game compositions: parchment is a physical object, not a dashboard tile. */
+.game-market, .game-inventory, .merchant-encounter {
+  --game-ink: #33271f;
+  --game-paper: var(--surface);
+  --game-gold: #c69a4d;
+}
+.game-market .market-filters, .game-inventory .market-filters {
+  margin-bottom: 1.4rem;
+  padding: .55rem .2rem;
+  border: 0;
+  background: none;
+  align-items: center;
+}
+.game-market .fantasy-field, .game-inventory .fantasy-field {
+  min-height: 2.8rem;
+  background: color-mix(in oklab, var(--surface) 85%, transparent);
+  border: 2px solid var(--border-strong);
+  border-radius: 22% 3% 16% 3% / 10% 23% 7% 30%;
+  box-shadow: 2px 3px 0 color-mix(in oklab, var(--secondary) 17%, transparent);
+}
+.inventory-count { display: inline-flex; flex-shrink: 0; align-items: center; gap: .45rem; color: var(--muted-foreground); font-style: italic; padding-inline: .65rem; }
+.inventory-categories { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin: -.3rem 0 2.1rem; }
+.inventory-categories button {
+  position: relative;
+  min-height: 2.1rem;
+  padding: .2rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: 3px 8px 2px 6px;
+  font-family: var(--font-heading);
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--muted-foreground);
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  cursor: pointer;
+  transition: transform 160ms, background-color 160ms;
+}
+.inventory-categories button:hover { transform: translateY(-2px); color: var(--foreground); }
+.inventory-categories button[aria-pressed="true"] { color: var(--primary-foreground); background: var(--primary); border-color: var(--border-strong); box-shadow: 1px 3px 0 var(--border-strong); transform: rotate(-1.2deg); }
+.game-market .merchant-roster { padding: .75rem .3rem 2rem; gap: 2.2rem 1.6rem; }
+.game-market .shop-card {
+  --shop-lean: -.8deg;
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  transform: rotate(var(--shop-lean));
+  isolation: isolate;
+  transition: transform 200ms;
+}
+.game-market .merchant-roster > li:nth-child(3n+2) .shop-card { --shop-lean: 1deg; margin-top: .9rem; }
+.game-market .merchant-roster > li:nth-child(3n) .shop-card { --shop-lean: -.3deg; }
+.game-market .shop-card:hover, .game-market .shop-card:focus-visible { transform: translateY(-7px) rotate(0); box-shadow: none; }
+.game-market .shop-scene {
+  position: relative;
+  height: 13.5rem;
+  padding: .6rem;
+  background: var(--game-ink);
+  clip-path: polygon(2% 3%, 18% 1%, 45% 2%, 68% 0, 98% 3%, 100% 34%, 98% 68%, 100% 97%, 70% 99%, 41% 98%, 1% 100%, 0 62%);
+}
+.game-market .shop-card .shop-art {
+  width: 100%; height: 100%; object-fit: cover; border: 1px solid #5c462b;
+  clip-path: polygon(0 1%, 98% 0, 100% 97%, 2% 100%);
+}
+.shop-scene-sigil { position: absolute; left: 1.1rem; top: 1.1rem; display: grid; place-items: center; width: 2rem; height: 2rem; color: #efdcaf; background: #8c3d30; border: 2px solid #38271e; border-radius: 40% 50% 43% 48%; transform: rotate(-8deg); box-shadow: 1px 2px 0 #38271e; }
+.shop-scene-sigil svg { width: 1rem; }
+.shop-category-ribbon { position: absolute; right: .5rem; bottom: 1.7rem; max-width: calc(100% - 2rem); padding: .25rem 1.25rem; background: #285d56; color: #f3dfaf; font-family: var(--font-heading); font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; clip-path: polygon(0 0, 95% 0, 100% 50%, 94% 100%, 0 100%, 4% 50%); }
+.game-market .shop-card .shop-story { position: relative; flex: 1; padding: 1.2rem 1.25rem 1rem; margin: -.8rem .65rem 0; border: 0; background: var(--game-paper); background-image: var(--paper-texture); box-shadow: 2px 4px 0 #33271f44; clip-path: polygon(1% 1%, 24% 0, 27% 2%, 52% 0, 77% 1%, 99% 0, 100% 42%, 98% 76%, 100% 98%, 69% 100%, 38% 98%, 0 100%); }
+.game-market .shop-story h2 { font-weight: 800; font-size: 1.2rem; line-height: 1.25; }
+.game-market .shop-enter { display: flex; align-items: center; justify-content: space-between; margin-top: .5rem; padding-top: .6rem; border-top: 1px solid var(--border); color: var(--primary); font-family: var(--font-heading); font-size: .72rem; font-weight: 800; }
+.game-market .shop-enter svg { transition: transform 180ms; }
+.game-market .shop-card:hover .shop-enter svg { transform: translate(3px,-3px); }
+.game-inventory .inventory-grid { align-items: start; gap: 2.1rem 1.35rem; padding: .6rem .2rem 1.8rem; }
+.game-inventory .item-card {
+  --card-lean: -.7deg;
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  padding: .65rem .65rem 0;
+  background: none;
+  box-shadow: none;
+  min-width: 0;
+  isolation: isolate;
+  transform: rotate(var(--card-lean));
+  transition: transform 200ms;
+}
+.game-inventory .item-card:nth-child(4n+2) { --card-lean: 1deg; margin-top: .5rem; }
+.game-inventory .item-card:nth-child(4n+3) { --card-lean: -.3deg; }
+.game-inventory .item-card:nth-child(4n) { --card-lean: .6deg; margin-top: .25rem; }
+.game-inventory .item-card::before, .game-inventory .item-card::after { content: ''; position: absolute; inset: 0 0 .6rem; pointer-events: none; z-index: -2; clip-path: polygon(3% 0, 30% 1%, 52% 0, 74% 1%, 97% 0, 100% 6%, 98% 32%, 100% 54%, 99% 78%, 100% 96%, 94% 100%, 72% 98%, 50% 100%, 22% 98%, 2% 100%, 0 91%, 1% 64%, 0 39%, 1% 13%); background: var(--game-ink); }
+.game-inventory .item-card::after { inset: 3px 3px calc(.6rem + 3px); z-index: -1; background-color: var(--game-paper); background-image: linear-gradient(135deg, color-mix(in oklab, var(--rarity-ink) 26%, transparent), transparent 58%), var(--paper-texture); }
+.game-inventory .item-card:hover { transform: translateY(-7px) rotate(0); box-shadow: none; }
+.game-inventory .item-card-art { position: relative; height: 11.5rem; overflow: visible; margin: 0; border: 0; border-radius: 0; background: radial-gradient(ellipse at center, color-mix(in oklab, var(--rarity-ink) 32%, var(--background)), transparent 72%); }
+.game-inventory .item-card-art::before { content: ''; position: absolute; inset: 1.25rem .5rem .1rem; border: 1px solid var(--border); border-radius: 50% 43% 47% 44%; transform: rotate(-12deg); opacity: .5; }
+.game-inventory .item-card-art :is(img, .game-item-artwork) { position: relative; height: calc(100% + .7rem); width: 100%; padding: .8rem .35rem 0; transform: rotate(-7deg) scale(1.03); filter: drop-shadow(3px 5px 0 #33271f30); transition: transform 220ms; }
+.game-inventory .item-card:hover .item-card-art :is(img, .game-item-artwork) { transform: rotate(-2deg) translateY(-5px) scale(1.07); }
+.game-inventory .item-card-category { position: absolute; z-index: 2; top: -.95rem; left: 50%; transform: translateX(-50%) rotate(2deg); max-width: calc(100% - 1rem); padding: .25rem .65rem; background: #285d56; color: #f2dcb0; border: 2px solid var(--game-ink); border-radius: 3px 8px 2px 4px; text-align: center; font-size: .55rem; line-height: 1.35; letter-spacing: .08em; }
+.item-card-spark { position: absolute; right: .6rem; top: 1.1rem; font-size: 1.5rem; color: var(--accent); transform: rotate(10deg); }
+.game-inventory .item-card-heading { position: relative; z-index: 1; justify-content: center; min-height: 3.3rem; padding: .6rem .65rem; margin: -.3rem -.9rem 0; background: #833d30; color: #f9e3b4; border: 2px solid var(--game-ink); box-shadow: 1px 3px 0 #33271f30; border-radius: 4px 7px 2px 5px; transform: rotate(-1deg); }
+.game-inventory .item-card-heading h3 { color: inherit; font-size: .88rem; line-height: 1.3; overflow-wrap: anywhere; }
+.game-inventory .item-card-rarity { margin: .45rem auto 0; }
+.game-inventory .item-card-rarity > span { background: none; border: 0; padding: .1rem; }
+.game-inventory .item-card-description { min-height: 5.4rem; flex: 1; padding: .55rem .35rem .9rem; margin-top: .25rem; border: 0; border-radius: 0; background: none; text-align: center; }
+.game-inventory .item-card-description p { line-height: 1.35; font-size: .92rem; }
+.game-inventory .item-card-description p + p { text-align: left; }
+.game-inventory .item-card-price { position: relative; flex-wrap: wrap; gap: .45rem; border: 0; padding: .1rem .05rem .85rem; margin: auto 0 -.2rem; }
+.game-inventory .item-card-price > span:first-child { font-size: .74rem; }
+.game-inventory .item-card-price .item-coin-ribbon { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; position: relative; min-width: 4.1rem; margin-right: -.85rem; padding: .35rem .6rem; background: #d3af65; color: #3e2c1c; border: 2px solid var(--game-ink); border-radius: 2px 6px 2px 4px; font-size: .88rem; transform: rotate(-4deg); box-shadow: 2px 3px 0 #33271f33; }
+.game-inventory .inventory-disclosure { transition: transform 180ms; }
+.game-inventory details[open] .inventory-disclosure { transform: rotate(180deg); }
+.merchant-encounter { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr; min-height: 18rem; padding: 2rem; margin: 1.6rem 0 2rem; }
+.merchant-encounter::before { content: ''; position: absolute; inset: 0; z-index: -2; background-color: var(--surface); background-image: var(--paper-texture); border: 2px solid var(--border-strong); border-radius: 49% 3% 7% 4% / 4% 8% 4% 7%; box-shadow: 4px 6px 0 #33271f22; transform: rotate(-.4deg); }
+.merchant-encounter-setting { position: absolute; inset: 0; z-index: -1; overflow: hidden; opacity: .13; border-radius: 10% 2% 4% 2%; mask-image: linear-gradient(90deg,transparent 2%, #000 100%); }
+.merchant-encounter-setting img { height: 100%; width: 100%; object-fit: cover; }
+.merchant-encounter-copy { align-self: center; max-width: 40rem; }
+.merchant-encounter-copy h1 { color: var(--primary); font-size: clamp(1.8rem,4vw,2.8rem); letter-spacing: -.035em; }
+.merchant-encounter-eyebrow { font-family: var(--font-heading); color: var(--accent); font-size: .66rem; text-transform: uppercase; letter-spacing: .2em; font-weight: 800; margin-bottom: .7rem; }
+.merchant-encounter-name { display: inline-flex; align-items: center; gap: .4rem; margin-top: .75rem; font-style: italic; color: var(--muted-foreground); }
+.merchant-refresh { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.3rem; padding: .35rem .85rem; border: 1px solid var(--border-strong); background: color-mix(in oklab,var(--background) 80%,transparent); border-radius: 2px 6px 2px 5px; color: var(--primary); font-size: .78rem; font-weight: 700; transform: rotate(-1deg); }
+.merchant-encounter-portrait { position: absolute; right: -1rem; bottom: -.5rem; height: calc(100% + 2.8rem); max-width: 43%; object-fit: contain; object-position: bottom; pointer-events: none; filter: drop-shadow(4px 6px 0 #33271f33); }
+.merchant-encounter-character .merchant-encounter-copy { max-width: 60%; }
+.merchant-encounter-flourish { position: absolute; right: 1.3rem; top: .4rem; color: var(--accent); font-size: 2.7rem; pointer-events: none; }
+:root[data-theme="dark"] .game-market .shop-story { box-shadow: 2px 4px 0 #0008; }
+:root[data-theme="dark"] .game-inventory .item-card-art { background: radial-gradient(ellipse at center, color-mix(in oklab,var(--rarity-ink) 44%, #88764e), transparent 72%); }
+:root[data-theme="dark"] .game-inventory .item-card-art :is(img, .game-item-artwork) { filter: drop-shadow(3px 5px 0 #0005); }
+:root[data-theme="dark"] .merchant-encounter-setting { opacity: .17; }
+@media (min-width: 1024px) { .game-market .merchant-roster { padding-inline: .7rem; } }
+@media (max-width: 639px) {
+  .game-market .merchant-roster > li:nth-child(n) .shop-card { --shop-lean: 0deg; margin-top: 0; }
+  .game-market .shop-scene { height: 14rem; }
+  .game-inventory .inventory-grid { gap: 2rem 1rem; }
+  .game-inventory .item-card { padding: .5rem .5rem 0; }
+  .game-inventory .item-card-art { height: 9rem; }
+  .game-inventory .item-card-heading { margin-inline: -.65rem; padding: .45rem .35rem; }
+  .game-inventory .item-card-heading h3 { font-size: .75rem; }
+  .game-inventory .item-card-description { padding-inline: .15rem; }
+  .game-inventory .item-card-description p { font-size: .82rem; }
+  .game-inventory .item-card-price .item-coin-ribbon { margin-right: -.5rem; font-size: .8rem; padding-inline: .35rem; }
+  .inventory-count { font-size: .85rem; align-self: end; }
+  .merchant-encounter { padding: 1.4rem; min-height: 0; margin-top: .75rem; }
+  .merchant-encounter-character { padding-bottom: 1.4rem; }
+  .merchant-encounter-character .merchant-encounter-copy { max-width: 100%; }
+  .merchant-encounter-portrait { position: relative; justify-self: end; grid-row: 1; max-width: 60%; max-height: 13rem; height: auto; margin-top: -2.4rem; margin-bottom: -.6rem; right: 0; }
+  .merchant-encounter-character .merchant-encounter-copy { grid-row: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-market .shop-card, .game-market .shop-card:hover,
+  .game-inventory .item-card, .game-inventory .item-card:hover { transform: none; }
+  .game-market *, .game-inventory * { transition: none !important; }
+}
+
+.game-item-artwork { display: grid; place-items: center; }
+.game-item-sprite { display: block; width: 100%; aspect-ratio: 1; background-image: url("/images/game/item-atlas.webp"); background-size: 300% 300%; background-repeat: no-repeat; }
+.game-item-sprite[data-category="weapon"] { background-position: 0 0; }
+.game-item-sprite[data-category="armor"] { background-position: 50% 0; }
+.game-item-sprite[data-category="potion"] { background-position: 100% 0; }
+.game-item-sprite[data-category="scroll"] { background-position: 0 50%; }
+.game-item-sprite[data-category="ring"] { background-position: 50% 50%; }
+.game-item-sprite[data-category="wand"] { background-position: 100% 50%; }
+.game-item-sprite[data-category="wondrous"] { background-position: 0 100%; }
+.game-item-sprite[data-category="gear"] { background-position: 50% 100%; }
+.game-item-sprite[data-category="other"] { background-position: 100% 100%; }
+.game-inventory .item-card-art .game-item-sprite { width: min(100%, 11.5rem); }
+@media (max-width: 639px) { .game-inventory .item-card-art .game-item-sprite { width: min(100%, 9rem); } }
+
+.game-market .market-filters > .relative, .game-inventory .market-filters > .relative { width: 100%; }
+
+
+@media (max-width: 639px) {
+  .merchant-encounter-portrait { margin-bottom: .6rem; }
+  .merchant-encounter-character .merchant-encounter-copy { padding-top: .4rem; }
+}
+
+.game-shop-sprite {
+  display: block;
+  background-image: url('/images/game/shop-scenes.webp');
+  background-size: 300% auto;
+  background-repeat: no-repeat;
+  background-position: 100% center;
+}
+.game-shop-sprite[data-scene="alchemist"] { background-position: 0 center; }
+.game-shop-sprite[data-scene="forge"] { background-position: 50% center; }
+.merchant-encounter-setting .game-shop-sprite { width: 100%; height: 100%; }

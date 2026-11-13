@@ -1,10 +1,10 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- local static SVG placeholders */
+import "./marketplace.css";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { CalendarClock, Search, Store, UserRound } from "lucide-react";
-import { shopImage } from "@/lib/assets";
+import { ArrowUpRight, CalendarClock, Search, Store, UserRound } from "lucide-react";
+import { ShopArtwork } from "@/components/shop-artwork";
 import { refreshLabel } from "@/lib/format";
 import type { LayoutPreset } from "@/lib/constants";
 import { Badge } from "@/components/ui/badge";
@@ -48,7 +48,7 @@ export function ShopBrowser({
   }, [shops, query, category]);
 
   return (
-    <div>
+    <div className="game-market">
       <div className="market-filters mb-5 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
@@ -84,7 +84,7 @@ export function ShopBrowser({
           {filtered.map((shop) => (
             <li key={shop.id}>
               <Link href={`/campaigns/${slug}/shops/${shop.id}`} className="flex items-center gap-4 px-4 py-3 transition-colors hover:bg-surface-2">
-                <img src={shopImage(shop.imagePath)} alt="" className="size-12 shrink-0 rounded-md border border-border object-cover" />
+                <ShopArtwork imagePath={shop.imagePath} category={shop.category} className="size-12 shrink-0 rounded-md border border-border object-cover" />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                     <span className="font-display text-lg font-semibold">{shop.name}</span>
@@ -100,18 +100,21 @@ export function ShopBrowser({
           ))}
         </ul>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="merchant-roster grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((shop) => (
             <li key={shop.id}>
               <Link
                 href={`/campaigns/${slug}/shops/${shop.id}`}
-                className="fantasy-panel shop-card group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface/95 transition-colors hover:border-primary/70"
+                className="shop-card group flex h-full flex-col"
               >
-                <img src={shopImage(shop.imagePath)} alt="" className="shop-art h-32 w-full border-b border-border object-cover" />
-                <div className="flex flex-1 flex-col gap-2 p-4">
+                <div className="shop-scene">
+                  <ShopArtwork imagePath={shop.imagePath} category={shop.category} className="shop-art w-full object-cover" />
+                  <span className="shop-scene-sigil" aria-hidden><Store /></span>
+                  {shop.category && <span className="shop-category-ribbon">{shop.category}</span>}
+                </div>
+                <div className="shop-story flex flex-1 flex-col gap-2">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <h2 className="text-lg font-semibold group-hover:text-primary">{shop.name}</h2>
-                    {shop.category && <Badge variant="muted">{shop.category}</Badge>}
                   </div>
                   {shop.merchantName && (
                     <p className="flex items-center gap-1.5 text-sm text-muted">
@@ -124,6 +127,7 @@ export function ShopBrowser({
                     <CalendarClock className="size-3.5" aria-hidden />
                     {refreshLabel(shop.nextRefreshDay, currentDay)}
                   </p>
+                  <span className="shop-enter">Zum Sortiment <ArrowUpRight className="size-4" aria-hidden /></span>
                 </div>
               </Link>
             </li>

@@ -12,8 +12,8 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
   return (
     <header className="fantasy-header sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-3 px-4">
-        <Link href="/campaigns" className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-primary">
-          <ScrollText className="size-5" aria-hidden />
+        <Link href="/campaigns" className="game-brand flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-primary">
+          <span className="game-brand-seal"><ScrollText className="size-5" aria-hidden /></span>
           <span className="hidden sm:inline">Kampagnen-Hub</span>
         </Link>
         <div className="flex min-w-0 flex-1 items-center gap-2">{children}</div>
