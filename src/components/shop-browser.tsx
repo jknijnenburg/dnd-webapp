@@ -49,7 +49,7 @@ export function ShopBrowser({
 
   return (
     <div>
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row">
+      <div className="market-filters mb-5 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
           <Input
@@ -80,7 +80,7 @@ export function ShopBrowser({
       {filtered.length === 0 ? (
         <EmptyState icon={<Store />} title="Keine Händler gefunden" description="Kein Händler passt zu deiner Suche." />
       ) : layout === "compact" ? (
-        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
+        <ul className="fantasy-panel divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
           {filtered.map((shop) => (
             <li key={shop.id}>
               <Link href={`/campaigns/${slug}/shops/${shop.id}`} className="flex items-center gap-4 px-4 py-3 transition-colors hover:bg-surface-2">
@@ -105,9 +105,9 @@ export function ShopBrowser({
             <li key={shop.id}>
               <Link
                 href={`/campaigns/${slug}/shops/${shop.id}`}
-                className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface/95 transition-colors hover:border-primary/70"
+                className="fantasy-panel shop-card group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface/95 transition-colors hover:border-primary/70"
               >
-                <img src={shopImage(shop.imagePath)} alt="" className="h-32 w-full border-b border-border object-cover" />
+                <img src={shopImage(shop.imagePath)} alt="" className="shop-art h-32 w-full border-b border-border object-cover" />
                 <div className="flex flex-1 flex-col gap-2 p-4">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <h2 className="text-lg font-semibold group-hover:text-primary">{shop.name}</h2>

@@ -24,6 +24,7 @@ export const ASSET_CATALOG = {
     "/images/backgrounds/forest-leaves.svg",
     "/images/backgrounds/gilded-lattice.svg",
     "/images/backgrounds/night-sky.svg",
+    "/images/backgrounds/paper-grain.svg",
     "/images/backgrounds/parchment-dark.svg"
   ],
   "covers": [

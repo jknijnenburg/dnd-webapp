@@ -20,7 +20,7 @@ async function Dashboard({ params }: { params: Promise<{ slug: string }> }) {
 
   return (
     <div className="space-y-8">
-      <section className="overflow-hidden rounded-lg border border-border bg-surface/95">
+      <section className="fantasy-panel campaign-hero overflow-hidden rounded-lg border border-border bg-surface/95">
         <img src={coverImage(campaign.coverImagePath)} alt="" className="h-40 w-full border-b border-border object-cover sm:h-56" />
         <div className="p-6">
           <h1 className="text-3xl font-semibold sm:text-4xl">{campaign.name}</h1>
@@ -74,7 +74,7 @@ async function Dashboard({ params }: { params: Promise<{ slug: string }> }) {
           <h2 id="refresh-heading" className="mb-4 flex items-center gap-2 text-xl font-semibold">
             <CalendarClock className="size-5 text-primary" aria-hidden /> Nächste Sortimentswechsel
           </h2>
-          <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
+          <ul className="fantasy-panel divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
             {upcoming.map((shop) => {
               const days = shop.nextRefreshDay - campaign.currentDay;
               return (

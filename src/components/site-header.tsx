@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LogOut, ScrollText, Shield } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
 import { getSession } from "@/lib/auth/session";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
 /** Top bar shared by player and admin areas. Admin entry points only render for admins. */
@@ -9,7 +10,7 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
   const session = await getSession();
   const isAdmin = session?.role === "admin";
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
+    <header className="fantasy-header sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-3 px-4">
         <Link href="/campaigns" className="flex shrink-0 items-center gap-2 font-display text-lg font-semibold text-primary">
           <ScrollText className="size-5" aria-hidden />
@@ -25,6 +26,7 @@ export async function SiteHeader({ children }: { children?: React.ReactNode }) {
             </Link>
           </Button>
         )}
+        <ThemeToggle />
         <form action={logoutAction}>
           <Button type="submit" variant="ghost" size="sm">
             <LogOut aria-hidden />

@@ -43,7 +43,7 @@ async function CampaignOverview() {
                 <Link
                   href={`/campaigns/${campaign.slug}`}
                   style={themeToCssVars(campaign.theme)}
-                  className="theme-scope group flex h-full flex-col overflow-hidden rounded-lg border border-border transition-colors hover:border-primary"
+                  className="fantasy-panel campaign-card theme-scope group flex h-full flex-col overflow-hidden rounded-lg border border-border transition-colors hover:border-primary"
                 >
                   <img src={coverImage(campaign.coverImagePath)} alt="" className="h-36 w-full border-b border-border object-cover" />
                   <div className="flex flex-1 flex-col gap-3 p-5">

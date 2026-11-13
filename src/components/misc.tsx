@@ -16,7 +16,7 @@ export function PageHeader({
   actions?: React.ReactNode;
 }) {
   return (
-    <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <div className="fantasy-page-header mb-6 flex flex-wrap items-end justify-between gap-4">
       <div className="min-w-0">
         {eyebrow && <div className="mb-1 text-sm text-muted">{eyebrow}</div>}
         <h1 className="text-2xl font-semibold sm:text-3xl">{title}</h1>
@@ -58,7 +58,7 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border-strong bg-surface/60 px-6 py-12 text-center">
+    <div className="fantasy-panel flex flex-col items-center gap-3 rounded-lg border border-dashed border-border-strong bg-surface/60 px-6 py-12 text-center">
       {icon && <div className="text-primary [&_svg]:size-9">{icon}</div>}
       <h2 className="text-lg font-semibold">{title}</h2>
       {description && <p className="max-w-md text-muted">{description}</p>}

@@ -28,7 +28,7 @@ async function ShopDetail({ params }: { params: Promise<{ slug: string; shopId: 
         <Breadcrumbs items={[{ label: "Händler", href: `/campaigns/${campaign.slug}/shops` }, { label: shop.name }]} />
       </div>
 
-      <section className="flex flex-col gap-5 rounded-lg border border-border bg-surface/95 p-5 sm:flex-row sm:items-start">
+      <section className="fantasy-panel merchant-banner flex flex-col gap-5 rounded-lg border border-border bg-surface/95 p-5 sm:flex-row sm:items-start">
         <img src={shopImage(shop.imagePath)} alt="" className="h-32 w-full shrink-0 rounded-md border border-border object-cover sm:size-32" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-3">
@@ -49,7 +49,7 @@ async function ShopDetail({ params }: { params: Promise<{ slug: string; shopId: 
       </section>
 
       <section aria-labelledby="stock-heading">
-        <h2 id="stock-heading" className="mb-4 text-xl font-semibold">
+        <h2 id="stock-heading" className="fantasy-section-title mb-4 text-xl font-semibold">
           Aktuelles Sortiment
         </h2>
         {entries.length === 0 ? (

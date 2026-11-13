@@ -57,7 +57,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
 
   return (
     <div>
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row">
+      <div className="market-filters mb-5 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
           <Input
@@ -88,7 +88,7 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
       {filtered.length === 0 ? (
         <EmptyState icon={<PackageOpen />} title="Nichts gefunden" description="Keine Ware passt zu deiner Suche." />
       ) : layout === "compact" ? (
-        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
+        <ul className="fantasy-panel divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface/95">
           {filtered.map((entry) => (
             <li key={entry.entryId} className={cn("px-4 py-3", entry.quantity === 0 && "opacity-70")}>
               <details className="group">
@@ -115,29 +115,28 @@ export function ItemBrowser({ entries, layout }: { entries: ItemBrowserEntry[]; 
           ))}
         </ul>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="inventory-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((entry) => (
             <li
               key={entry.entryId}
-              className={cn("flex flex-col rounded-lg border border-border bg-surface/95 p-4", entry.quantity === 0 && "opacity-70")}
+              data-rarity={entry.rarity}
+              className={cn("item-card flex flex-col rounded-lg border border-border bg-surface/95", entry.quantity === 0 && "opacity-70")}
             >
-              <div className="flex items-start gap-3">
-                <img src={itemImage(entry.imagePath, entry.category)} alt="" className="size-14 shrink-0 rounded-md border border-border bg-surface-2" />
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-base font-semibold leading-snug">{entry.name}</h3>
-                  <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                    <Badge variant="muted">{categoryLabel(entry.category)}</Badge>
-                    <RarityBadge rarity={entry.rarity} />
-                  </div>
-                </div>
+              <div className="item-card-heading">
+                <span className="item-card-category">{categoryLabel(entry.category)}</span>
+                <h3 className="text-base font-bold leading-snug">{entry.name}</h3>
               </div>
-              {entry.description && <p className="prose-plain mt-3 text-[0.95rem]">{entry.description}</p>}
-              {entry.properties && (
-                <p className="prose-plain mt-2 border-l-2 border-primary/50 pl-3 text-sm text-muted">{entry.properties}</p>
-              )}
-              <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+              <div className="item-card-art">
+                <img src={itemImage(entry.imagePath, entry.category)} alt="" className="h-full w-full object-contain" />
+              </div>
+              <div className="item-card-rarity"><RarityBadge rarity={entry.rarity} /></div>
+              <div className="item-card-description">
+                {entry.description && <p className="prose-plain text-[0.95rem]">{entry.description}</p>}
+                {entry.properties && <p className="prose-plain mt-2 border-l-2 border-accent/50 pl-3 text-sm text-muted">{entry.properties}</p>}
+              </div>
+              <div className="item-card-price mt-auto flex items-center justify-between gap-3">
                 <Stock quantity={entry.quantity} />
-                <span className="font-display text-lg font-semibold text-primary tabular-nums">{price(entry)}</span>
+                <span className="font-display text-lg font-bold text-primary tabular-nums">{price(entry)}</span>
               </div>
             </li>
           ))}

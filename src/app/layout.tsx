@@ -4,6 +4,7 @@ import "@fontsource-variable/crimson-pro";
 import "@fontsource-variable/cormorant";
 import "@fontsource-variable/inter";
 import "./globals.css";
+import { APPEARANCE_INIT_SCRIPT } from "@/lib/appearance";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
@@ -14,13 +15,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#14110f",
-  colorScheme: "dark",
+  themeColor: "#efdcaf",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className="h-full antialiased">
+    <html lang="de" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: APPEARANCE_INIT_SCRIPT }} />
+      </head>
       <body className="theme-scope flex min-h-full flex-col">
         <a
           href="#inhalt"

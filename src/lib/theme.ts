@@ -13,12 +13,12 @@ export interface ThemeConfig {
 }
 
 export const DEFAULT_THEME: ThemeConfig = {
-  primaryColor: "#c9a227",
-  secondaryColor: "#7a4b2a",
-  accentColor: "#8f2d2d",
-  backgroundColor: "#14110f",
+  primaryColor: "#9d382c",
+  secondaryColor: "#735037",
+  accentColor: "#16756b",
+  backgroundColor: "#efdcaf",
   fontPreset: "classic",
-  backgroundImagePath: "/images/backgrounds/parchment-dark.svg",
+  backgroundImagePath: "/images/backgrounds/paper-grain.svg",
   layoutPreset: "cards",
 };
 
@@ -79,16 +79,24 @@ export function normalizeLayoutPreset(value: string): LayoutPreset {
  */
 export function themeToCssVars(theme: ThemeConfig): CSSProperties {
   const safe = (value: string, fallback: string) => (isHexColor(value) ? value : fallback);
-  const background = safe(theme.backgroundColor, DEFAULT_THEME.backgroundColor);
-  const primary = safe(theme.primaryColor, DEFAULT_THEME.primaryColor);
-  const secondary = safe(theme.secondaryColor, DEFAULT_THEME.secondaryColor);
-  const accent = safe(theme.accentColor, DEFAULT_THEME.accentColor);
+  // Give campaigns using the original stock palette the new art direction.
+  // Explicitly customized campaign palettes remain editable and are preserved.
+  const stockPalette = theme.backgroundColor.toLowerCase() === "#14110f"
+    && theme.primaryColor.toLowerCase() === "#c9a227"
+    && theme.secondaryColor.toLowerCase() === "#7a4b2a"
+    && theme.accentColor.toLowerCase() === "#8f2d2d";
+  const palette = stockPalette ? DEFAULT_THEME : theme;
+  const background = safe(palette.backgroundColor, DEFAULT_THEME.backgroundColor);
+  const primary = safe(palette.primaryColor, DEFAULT_THEME.primaryColor);
+  const secondary = safe(palette.secondaryColor, DEFAULT_THEME.secondaryColor);
+  const accent = safe(palette.accentColor, DEFAULT_THEME.accentColor);
   const fonts = FONT_STACKS[normalizeFontPreset(theme.fontPreset)];
   const image =
     theme.backgroundImagePath && isAllowedAssetPath(theme.backgroundImagePath)
       ? `url("${theme.backgroundImagePath}")`
       : "none";
   return {
+    colorScheme: relativeLuminance(background) > 0.179 ? "light" : "dark",
     "--background": background,
     "--foreground": readableTextOn(background),
     "--primary": primary,

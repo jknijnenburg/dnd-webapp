@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -5,9 +6,10 @@ export function LoginShell({ title, description, children }: { title: string; de
   return (
     <main
       id="inhalt"
-      className="campaign-backdrop flex flex-1 items-center justify-center px-4 py-12"
-      style={{ "--bg-image": 'url("/images/backgrounds/parchment-dark.svg")' } as React.CSSProperties}
+      className="fantasy-login campaign-backdrop flex flex-1 items-center justify-center px-4 py-12"
+      style={{ "--bg-image": 'url("/images/backgrounds/paper-grain.svg")' } as React.CSSProperties}
     >
+      <div className="absolute right-4 top-4"><ThemeToggle /></div>
       <Card className="w-full max-w-sm">
         <CardContent className="p-7">
           <div className="mb-6 flex flex-col items-center gap-3 text-center">

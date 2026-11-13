@@ -110,7 +110,7 @@ describe("asset paths and theme output", () => {
       backgroundImagePath: "https://evil.example/x.png",
       layoutPreset: "cards",
     }) as Record<string, string>;
-    expect(vars["--primary"]).toBe("#c9a227");
+    expect(vars["--primary"]).toBe("#9d382c");
     expect(vars["--bg-image"]).toBe("none");
     expect(vars["--font-heading"]).toContain("Cinzel");
     // Light background -> dark text for contrast.
