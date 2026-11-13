@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2118"/><stop offset="1" stop-color="#120e0b"/></linearGradient>
+<radialGradient id="m" cx=".72" cy=".3" r=".35"><stop offset="0" stop-color="#c9a227" stop-opacity=".55"/><stop offset="1" stop-color="#c9a227" stop-opacity="0"/></radialGradient></defs>
+<rect width="960" height="360" fill="url(#s)"/><rect width="960" height="360" fill="url(#m)"/>
+<circle cx="690" cy="108" r="34" fill="#c9a227" fill-opacity=".85"/><polygon points="0,360 0,208 80,192 160,210 240,213 320,165 400,188 480,224 560,200 640,212 720,189 800,195 880,197 960,192 960,360" fill="#3a2c20" fill-opacity="1"/><polygon points="0,360 0,288 60,255 120,272 180,248 240,253 300,275 360,274 420,240 480,283 540,281 600,235 660,293 720,241 780,233 840,260 900,270 960,249 960,360" fill="#241b14" fill-opacity="1"/><polygon points="0,360 0,331 48,303 96,312 144,315 192,309 240,322 288,326 336,302 384,311 432,335 480,300 528,314 576,320 624,317 672,314 720,337 768,320 816,313 864,329 912,296 960,321 960,360" fill="#140f0c" fill-opacity="1"/>
+</svg>

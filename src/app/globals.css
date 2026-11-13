@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. The four brand colours, fonts and background image can be
+ * overridden per campaign (see lib/theme.ts); everything else is derived from
+ * them inside `.theme-scope`, so derived colours follow the override.
+ */
+:root {
+  --background: #14110f;
+  --foreground: #f3ead7;
+  --primary: #c9a227;
+  --primary-foreground: #1a1512;
+  --secondary: #7a4b2a;
+  --secondary-foreground: #f3ead7;
+  --accent: #8f2d2d;
+  --accent-foreground: #f3ead7;
+  --font-heading: "Cinzel Variable", "Times New Roman", serif;
+  --font-body: "Crimson Pro Variable", Georgia, serif;
+  --bg-image: none;
+  --radius: 0.5rem;
+  color-scheme: dark;
+}
+
+.theme-scope {
+  --surface: color-mix(in oklab, var(--background) 93%, var(--foreground));
+  --surface-2: color-mix(in oklab, var(--background) 86%, var(--foreground));
+  --border: color-mix(in oklab, var(--background) 76%, var(--foreground));
+  --border-strong: color-mix(in oklab, var(--background) 55%, var(--primary));
+  --muted-foreground: color-mix(in oklab, var(--foreground) 72%, var(--background));
+  --ring: color-mix(in oklab, var(--primary) 80%, var(--foreground));
+  --destructive: color-mix(in oklab, #d64545 80%, var(--foreground));
+  --success: color-mix(in oklab, #4f9d69 75%, var(--foreground));
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-ring: var(--ring);
+  --font-display: var(--font-heading);
+  --font-sans: var(--font-body);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+}
+
+@layer base {
+  html {
+    font-size: 17px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    min-height: 100dvh;
+    line-height: 1.5;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  /* Always-visible keyboard focus */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 45%, transparent);
+  }
+  input[type="color"] {
+    padding: 2px;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Tiled campaign background below a readability veil */
+  .campaign-backdrop {
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--background) 82%, transparent), color-mix(in oklab, var(--background) 94%, transparent)),
+      var(--bg-image);
+    background-size: auto, 320px 320px;
+    background-attachment: fixed;
+  }
+  .ornament-rule {
+    height: 1px;
+    border: 0;
+    background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--primary) 50%, var(--border-strong) 80%, transparent);
+    opacity: 0.7;
+  }
+  .prose-plain {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
